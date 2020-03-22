@@ -19,17 +19,17 @@ export default new Vuex.Store({
     },
 
     DELETE_NOTE(state , id) {
-      state.notes.splice(id , 1);
+      state.notes.splice(id - 1 , 1);
     }
   },
   actions: {
     deleteNote({ commit }, id) {
       return new Promise( (resolve, reject) => {
         axios({})
-            .then(
-                commit('DELETE_NOTE', id),
-                resolve('deleted')
-            )
+            .then(resp => {
+              commit('DELETE_NOTE', id);
+              resolve(resp)
+            })
             .catch(err => {
               reject(err)
             })
@@ -39,9 +39,11 @@ export default new Vuex.Store({
     addNote({ commit }, data) {
       return new Promise( (resolve, reject) => {
         axios({})
-            .then(
-                commit('ADD_NOTE', data),
-                resolve('added')
+            .then(resp => {
+                  commit('ADD_NOTE', data);
+                  resolve(resp)
+            }
+
             )
             .catch(err => {
               reject(err)

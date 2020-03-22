@@ -11,13 +11,16 @@ const routes = [
     component: Home
   },
   {
-    path: '/note',
+    path: '/note/:id',
     name: 'Note',
-    component: () => import('../pages/Note.vue')
+    component: () => import('../pages/Note.vue'),
+    props: true,
   }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes
 })
 

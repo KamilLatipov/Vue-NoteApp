@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <a @click="toEdit">Add a note</a>
     <div v-for="note in notes" v-bind:key="note.id">
       <h2> {{ note.title }} </h2>
       <span @click="toDelete(note.id)">&times;</span>
@@ -28,11 +29,11 @@ export default {
 
   methods: {
     toEdit: function(id) {
-      this.$router.push({ name: 'note', params: { id: id } })
+      this.$router.push({ name: 'Note', params: { id: id } })
     },
 
-    toDelete: function() {
-      
+    toDelete: function(id) {
+       this.store.dispatch('deleteNote', id)
     }
   },
 }
